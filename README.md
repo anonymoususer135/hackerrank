@@ -1,8 +1,11 @@
 # hackerrank
 
+Here I enter some progress stuff while working on the HackerRank challenges.
+
 ## Caesar Cipher
 
 **10/29/2021**
+
 When starting on the Caesar Cipher code, I first put in a for loop, then introduced an integer variable called ascValue to store the ASCII values, and aLetter to turn said values back into characters. Here is my code so far. I have not finished my answer yet.
 
 ```code
