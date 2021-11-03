@@ -137,3 +137,97 @@ string caesarCipher(string s, int k) {
 return output;
 }
 ```
+
+After I ran the file, I noticed that I converted a part of a sample input correctly, except that I forgot to include a special character of the said correct output. So, I added an else statement which just appends the character into "output".
+
+```cpp
+string caesarCipher(string s, int k) {
+    string output="";
+    for (int i = 0; i < s.size(); i++) {
+        if (((int)s.at(i) >= 65 && (int)s.at(i) <= 90)) {
+            if ((int)s.at(i)+k <= 90) {
+                output+= char((int)s.at(i)+k);
+            }
+            else {
+                output+= char(65+(int)s.at(i)+k-90-1); //the portion to cross the Z, go back from A again
+            }
+        }
+        else if (((int)s.at(i) >= 97 && (int)s.at(i) <= 122)) {
+            if ((int)s.at(i)+k <= 122) {
+                output+= char((int)s.at(i)+k);
+            }
+            else {
+                output+= char((int)s.at(i)+k-122);
+            }
+    }
+    else{
+        output+=s.at(i);
+        
+    }
+}
+return output;
+}
+```
+
+This time I actually included the special character in the correct output, except that I missed a lowercase letter which was near Lowercase a. I just need one final touch to the code, in the else statement. If the string has a z in it, then it should return to a and then finish counting by its rotation to cipher. For example, z in a string in rotation 2 should land on b, so in the cipher translation, the b is in place of the z in the original string.
+
+```cpp
+string caesarCipher(string s, int k) {
+    string output="";
+    for (int i = 0; i < s.size(); i++) {
+        if (((int)s.at(i) >= 65 && (int)s.at(i) <= 90)) {
+            if ((int)s.at(i)+k <= 90) {
+                output+= char((int)s.at(i)+k);
+            }
+            else {
+                output+= char(65+(int)s.at(i)+k-90-1); //the portion to cross the Z, go back from A again
+            }
+        }
+        else if (((int)s.at(i) >= 97 && (int)s.at(i) <= 122)) {
+            if ((int)s.at(i)+k <= 122) {
+                output+= char((int)s.at(i)+k);
+            }
+            else {
+                output+= char(97+(int)s.at(i)+k-122-1);
+            }
+    }
+    else{
+        output+=s.at(i);
+        
+    }
+}
+return output;
+}
+```
+
+It worked on the run, but it didn't work for other answers. The reason why it didn't work for the other answers was because if the rotation number was insanely large, or more than 26, then the code would not work. So, I made a new integer called newK to store the remainder of the large rotation numbers divided by 26. I then replaced the other "k"'s with my newK variable. Here is my working method.
+
+```code
+string caesarCipher(string s, int k) {
+    string output="";
+    int newK = k % 26;
+    for (int i = 0; i < s.size(); i++) {
+        if (((int)s.at(i) >= 65 && (int)s.at(i) <= 90)) {
+            if ((int)s.at(i)+newK <= 90) {
+                output+= char((int)s.at(i)+newK);
+            }
+            else {
+                output+= char(65+(int)s.at(i)+newK-90-1); //the portion to cross the Z, go back from A again
+            }
+        }
+        else if (((int)s.at(i) >= 97 && (int)s.at(i) <= 122)) {
+            if ((int)s.at(i)+newK <= 122) {
+                output+= char((int)s.at(i)+newK);
+            }
+            else {
+                output+= char(97+(int)s.at(i)+newK-122-1);
+            }
+    }
+    else{
+        output+=s.at(i);
+        
+    }
+}
+return output;
+}
+```
