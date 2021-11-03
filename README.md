@@ -87,3 +87,25 @@ string caesarCipher(string s, int k) {
 }
 }
 ```
+
+However when I noticed that the second else statement would cause an error at some cases, I commented it out. In fact, I commented out all the if statements and just left the output statement in the lowercase feature of the method.
+
+```cpp
+string caesarCipher(string s, int k) {
+    string output="";
+    for (int i = 0; i < s.size(); i++) {
+        if (((int)s.at(i) >= 65 && (int)s.at(i) <= 90)) {
+            if ((int)s.at(i)+k <= 90) {
+                output+= char((int)s.at(i)+k);
+            }
+            else {
+                output+= char((int)s.at(i)+k-90);
+            }
+        }
+        else if (((int)s.at(i) >= 97 && (int)s.at(i) <= 122)) {
+            output+= char((int)s.at(i)+k);
+    }
+}
+return output;
+}
+```
