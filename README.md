@@ -25,3 +25,19 @@ string caesarCipher(string s, int k) {
     }
 }
 ```
+
+**11/2/2021**
+
+I have learned how to convert variables to ASCII values, after finding some souce code. In order to turn characters into their ASCII integer forms, the user enters (int) before a character variable like this.
+
+```cpp
+int c = 97;
+cout << char(c); //prints a
+```
+
+And for turning integers into their ASCII character forms, the user enters (char) before an integer variable like this.
+
+```cpp
+char c = 'a';
+cout << int(c) //prints 97
+```
