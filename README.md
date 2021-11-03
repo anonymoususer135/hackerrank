@@ -231,3 +231,18 @@ string caesarCipher(string s, int k) {
 return output;
 }
 ```
+
+## Grid
+
+I started with a for loop iterating through the vector in the parameter brackets, then inside that for loop, iterate through the vector's items. I have not finished this method yet.
+
+```cpp
+string gridChallenge(vector<string> grid) {
+    vector<string>grid2;
+    for (int i = 0; i < grid.size(); i++) {
+        for (int j = 0; j < grid[i].length(); j++) {
+            
+        }
+    }
+}
+```
