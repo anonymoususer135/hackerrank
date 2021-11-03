@@ -109,3 +109,31 @@ string caesarCipher(string s, int k) {
 return output;
 }
 ```
+
+You know what? I'm just going to undo and keep those if statements. And since that's not enough I edited line 25, or the output incrementation in the uppercase if statement, if the integer form of the characters are more than 90.
+What I did was add 65 to the integer and then subtract 1 from it. It's for crossing Z and returning from A again.
+
+```cpp
+string caesarCipher(string s, int k) {
+    string output="";
+    for (int i = 0; i < s.size(); i++) {
+        if (((int)s.at(i) >= 65 && (int)s.at(i) <= 90)) {
+            if ((int)s.at(i)+k <= 90) {
+                output+= char((int)s.at(i)+k);
+            }
+            else {
+                output+= char(65+(int)s.at(i)+k-90-1); //the portion to cross the Z, go back from A again
+            }
+        }
+        else if (((int)s.at(i) >= 97 && (int)s.at(i) <= 122)) {
+            if ((int)s.at(i)+k <= 122) {
+                output+= char((int)s.at(i)+k);
+            }
+            else {
+                output+= char((int)s.at(i)+k-122);
+            }
+    }
+}
+return output;
+}
+```
