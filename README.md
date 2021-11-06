@@ -315,10 +315,16 @@ string gridChallenge(vector<string> grid) {
 Notice that the first line of the string is the number of the cases, and the second one is the number of columns. The third one will be the actual grid, and it will return "yes" if all of its vertical lines are in alphabetical order. For example, this input should return "yes". It is one of the test runs in Hackerrank.
 
 >>> 1
- 5
- eabcd
- fghij
- olkmn
- trpqs
- xywuv
+>>>
+>>>5
+>>>
+>>>eabcd
+>>>
+>>>fghij
+>>>
+>>>olkmn
+>>>
+>>>trpqs
+>>>
+>>>xywuv
 
