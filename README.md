@@ -246,3 +246,33 @@ string gridChallenge(vector<string> grid) {
     }
 }
 ```
+**11/5/2021**
+
+I had to make major changes to my code. First, I sorted the items in the vector named "grid", then introduced a new string called workString, to store the letters. I decided to put most of the function into an iterator of the entire grid vector. Inside the for loop for the vector, the first for loop would check if the number inputs were ASCII letters when converted. If the workString was still empty, then the for loop would continue. If the workString characters were sorted, then the loop would also continue. It would continue until none of those functions happened, in which case the function would return "no."
+```cpp
+string gridChallenge(vector<string> grid) {
+    
+    std::sort(grid.begin(), grid.end());
+    string workString="";
+    for (string s:grid)
+    {
+        for (int i = 0; i < s.size(); i++) {
+            if (int(s.at(i)) >= 97 && int(s.at(i)) <= 122) {
+                workString+=s.at(i);
+            }
+        }
+        if (workString.size()==0){
+            continue;
+        }
+        if (is_sorted(workString.begin(), workString.end())) {
+            continue;
+        }
+        else {
+            return "NO";
+        }
+        
+    }
+    return "YES";
+
+}
+```
