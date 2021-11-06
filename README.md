@@ -276,3 +276,49 @@ string gridChallenge(vector<string> grid) {
 
 }
 ```
+
+UPDATE: Since the entire code did not work, I had to start over. I was supposed to have the vertical columns of the vector be in alphabetical order to return "yes", not the horizontal ones.
+Here is my code. Here, I made two boolean variables to go through the first and second lines of the grid. I started with the grid, then looked for the first and second lines, and also converted the characters of the grid items into integers. I am currently woring on filling up the newGrid which I have created. 
+
+```cpp
+string gridChallenge(vector<string> grid) {   
+    bool firstLineEncounter=false;
+    bool secondLineEncounter=false;
+    int numCase=0;
+    int numLineColumn=0;
+    for (string s:grid)
+    {
+       if (firstLineEncounter==false && secondLineEncounter==false)
+       {
+           numCase=stoi(s);
+           firstLineEncounter=true;
+       }
+       else if (firstLineEncounter==true && secondLineEncounter==false)
+       {
+           numLineColumn=stoi(s);
+           secondLineEncounter=true;
+       }
+       else
+       break;
+    }
+    std::vector<vector<string>> newGrid(numLineColumn, vector<string> (numLineColumn));
+    //fill up the newGrid
+    
+    
+    
+    
+    return "YES";
+
+}
+```
+
+Notice that the first line of the string is the number of the cases, and the second one is the number of columns. The third one will be the actual grid, and it will return "yes" if all of its vertical lines are in alphabetical order. For example, this input should return "yes". It is one of the test runs in Hackerrank.
+
+>>> 1
+5
+eabcd
+fghij
+olkmn
+trpqs
+xywuv
+
