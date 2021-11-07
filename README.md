@@ -543,3 +543,5 @@ for (type) s : (vector name)
 emptyString = s[i];
 }
 ```
+
+I don't know if this is correct, I will have to try and learn it via the online C++ compiler.
