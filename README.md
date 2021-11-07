@@ -328,3 +328,218 @@ Notice that the first line of the string is the number of the cases, and the sec
 >>>
 >>>xywuv
 
+**11/6/2021**
+
+I have recently updated my code by once again using the sort function on the grid, as well as making a new vector called "newGrid". There, I was to store all the vertical lists from the grid vector. I first iterated through the original grid and inserted the grid items inside the newGrid vector. I also bought back the workString empty string to store each vertical line, and if it was sorted, then it would turn back into an empty string as the program continues iterating through newLineColumn. However if none of the lists were sorted, the program would return "NO". If the program found all the lines in alphabetical order, it would return "YES".
+
+```cpp
+string gridChallenge(vector<string> grid) {   
+    bool firstLineEncounter=false;
+    bool secondLineEncounter=false;
+    int numCase=0;
+    int numLineColumn=0;
+    for (string s:grid)
+    {
+       if (firstLineEncounter==false && secondLineEncounter==false)
+       {
+           numCase=stoi(s);
+           firstLineEncounter=true;
+       }
+       else if (firstLineEncounter==true && secondLineEncounter==false)
+       {
+           numLineColumn=stoi(s);
+           secondLineEncounter=true;
+       }
+       else
+       break;
+    }
+  //  std::vector<vector<string>> newGrid(numLineColumn, vector<string> (numLineColumn));
+    //fill up the newGrid
+    
+    
+    
+    std::sort(grid.begin()+2, grid.end());
+    vector<string> newGrid(numLineColumn); //new grid
+    for (int i = 0; i < grid.size(); i++) {
+        if (i<2)
+        {
+            continue;
+            }
+        else {
+            newGrid[i]=grid.at(i);
+        }
+    }
+    string workString="";
+    for (int i=0;i<numLineColumn;i++) {
+        for (string s:newGrid)
+        {
+            workString+=s[i];
+            
+            
+                 
+        }
+       if (is_sorted(workString.begin(), workString.end())) {
+           workString="";
+           continue;
+           
+       } 
+       else {
+           return "NO";
+       }
+    }
+    
+    
+    return "YES";
+
+}
+```
+
+I ran this code but got some errors; the stoi did not compile. I made some updates to try to fix the code.
+
+```cpp
+string gridChallenge(vector<string> grid) {   
+    bool firstLineEncounter=false;
+    bool secondLineEncounter=false;
+    int numCase=0;
+    int numLineColumn=0;
+    for (string s:grid)
+    {
+       if (firstLineEncounter==false && secondLineEncounter==false)
+       {
+           if (any_of(s.begin(), s.end(), ::isdigit))
+           {
+           numCase=stoi(s);
+           firstLineEncounter=true;
+           }
+       }
+       else if (firstLineEncounter==true && secondLineEncounter==false)
+       {
+           if (any_of(s.begin(), s.end(), ::isdigit)) {
+           numLineColumn=stoi(s);
+           secondLineEncounter=true;
+           }
+       }
+       else
+       break;
+    }
+  //  std::vector<vector<string>> newGrid(numLineColumn, vector<string> (numLineColumn));
+    //fill up the newGrid
+    
+    
+    
+    std::sort(grid.begin()+2, grid.end());
+    vector<string> newGrid(numLineColumn); //new grid
+    for (int i = 0; i < grid.size(); i++) {
+        if (i<2)
+        {
+            continue;
+            }
+        else {
+            newGrid[i]=grid.at(i);
+        }
+    }
+    string workString="";
+    for (int i=0;i<numLineColumn;i++) {
+        for (string s:newGrid)
+        {
+            workString+=s[i];
+            
+            
+                 
+        }
+       if (is_sorted(workString.begin(), workString.end())) {
+           workString="";
+           continue;
+           
+       } 
+       else {
+           return "NO";
+       }
+    }
+    
+    
+    return "YES";
+
+}
+```
+
+That didn't work either, because I noticed that I misunderstood the entire question.
+I had to remove all instances of the newGrid vector and more things, and here is my code so far.
+
+```cpp
+string gridChallenge(vector<string> grid) {   
+ 
+  //  std::vector<vector<string>> newGrid(numLineColumn, vector<string> (numLineColumn));
+    //fill up the newGrid
+    
+    
+    
+    std::sort(grid.begin(), grid.end());
+    string workString="";
+    for (int i=0;i<grid.size();i++) {
+        for (string s:grid)
+        {
+            workString+=s[i];
+        }
+       if (is_sorted(workString.begin(), workString.end())) {
+           workString="";
+           continue;
+           
+       } 
+       else {
+           return "NO";
+       }
+    }
+    
+    
+    return "YES";
+
+}
+```
+
+I ran my code for the first two sample test cases and it worked, but as for the official test cases, it didn't work. This is because again, I didn't understand the question well. The user was supposed to enter a number for the number of cases, then another number for the size of the array. The number of cases means that for example if the user enters 3, then they were to enter three arrays, but they can make a different size for each array they make.
+
+```cpp
+string gridChallenge(vector<string> grid) {   
+ 
+  //  std::vector<vector<string>> newGrid(numLineColumn, vector<string> (numLineColumn));
+    //fill up the newGrid
+    
+    
+   
+    for (int i = 0; i < grid.size(); i++) {
+        sort(grid.at(i).begin(), grid.at(i).end()); //sort by itself in place
+
+    }
+    string workString="";
+    for (int i=0;i<grid.size();i++) {
+        for (string s:grid)
+        {
+            workString+=s[i];
+            
+            
+                 
+        }
+       if (is_sorted(workString.begin(), workString.end())) {
+           workString="";
+           continue;
+           
+       } 
+       else {
+           return "NO";
+       }
+    }
+    
+    
+    return "YES";
+
+}
+```
+The code ended up working. In order to flip a 2-D vector, the user is to make an empty string and iterate through the vector, and then add each character of the vector's items in the empty string via this method, inside a for loop iteration of the vector.
+
+```cpp
+for (type) s : (vector name)
+{
+emptyString = s[i];
+}
+```
