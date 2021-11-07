@@ -545,3 +545,12 @@ emptyString = s[i];
 ```
 
 I don't know if this is correct, I will have to try and learn it via the online C++ compiler.
+
+## Recursive functions
+
+All I can say here is a few things.
+This is how to turn a character into an integer, without using the ASCII methods.
+
+```cpp
+int = char - 48
+```
