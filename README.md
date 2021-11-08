@@ -554,3 +554,28 @@ This is how to turn a character into an integer, without using the ASCII methods
 ```cpp
 int = char - 48
 ```
+
+**11/7/2021**
+
+This is my answer for the Recursive function. I noticed I had to assign each character before subtracting 48 from them, as well as multiply k to the long sum, since other test answers contained an insanely long number. 
+
+```cpp
+int superDigit(string n, int k) {
+    long sum=0;
+    for (int i=0;i<n.size();i++)
+    {
+        sum+=int(n.at(i))-48;       
+    }
+    sum*=k;
+    if (sum<10)
+    {
+        return sum;
+    }
+    else {
+        return superDigit(to_string(sum), 1);
+    }
+    
+    
+    
+}
+```
