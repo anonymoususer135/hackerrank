@@ -579,3 +579,28 @@ int superDigit(string n, int k) {
     
 }
 ```
+
+## New Year Chaos
+
+I had to iterate through the queue size, and subtract i+1 from each number in the queue. If it was greater than 0, then the bribe would subtract 1. Unless it was too chaotic, or the result of the i-1 subtracted from the queue number was greater than 2, it would print out the bribe.
+
+```cpp
+void minimumBribes(vector<int> q) {
+int bribe=0;
+for (int i=0;i<q.size();i++){
+    if (q.at(i)-i-1>2){
+        cout << "Too chaotic" << endl;
+        return;
+ //       bribe+=q.at(i)-i+1;
+    }
+    if (q.at(i)-i-1 >0)
+        bribe+=q.at(i)-i-1;
+}
+
+    cout << bribe << endl;
+
+    
+    
+
+}
+```
