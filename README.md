@@ -579,3 +579,357 @@ int superDigit(string n, int k) {
     
 }
 ```
+
+## Queue
+
+This is my recent code on this challenge. I recieved errors when running the code.
+
+```cpp
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int numberOfQuery;
+    int numberOfChoice;
+    int enqueue;
+    string query;
+    vector <int> inStack;
+    vector <int> outStack;
+    cin >> numberOfQuery;
+   // std::iostream::getline( numberOfChoice, enqueue );
+    for (int i = 0; i < numberOfQuery; i++) {
+        cin >> noskipws >> query;
+        if (query.at(0) == 1) {
+            inStack.push_back(query.at(1));
+        }
+        else if (query.at(0) == 2) {
+            outStack.pop_back();
+        }
+        else if (query.at(0)== 3) {
+            cout << inStack.at(0);
+        }
+    }  
+    
+    return 0;
+}
+```
+
+I just changed some things in my code, especially in the query choices parts, where I added more if statements. I also noticed that the erase function removes a certain item from the vector, and the nosipws part would allow the user to enter an item with a space. 
+
+```cpp
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int numberOfQuery;
+    int numberOfChoice;
+    int enqueue;
+    string query;
+    vector <int> inStack;
+    vector <int> outStack;
+    cin >> numberOfQuery;
+   // std::iostream::getline( numberOfChoice, enqueue );
+    for (int i = 0; i < numberOfQuery; i++) {
+        cin >> noskipws >> query;
+        if (query.at(0) == 1) {
+            inStack.push_back(query.at(1));
+
+        }
+        else if (query.at(0) == 2) {
+            if (outStack.size() == 0) {
+                  if (inStack.size() > 0) {
+                    outStack.push_back(inStack.at(0));
+                    inStack.erase(inStack.begin());
+                  }
+            }
+            if (outStack.size() > 0) {
+                outStack.pop_back();
+            }
+            //outStack.pop_back();
+        }
+        else if (query.at(0)== 3) {
+            if (inStack.size() > 0) {
+                cout << inStack.at(0);
+            }
+        }
+    }  
+    
+    return 0;
+}
+
+```
+Here is my updated code, after some changes. 
+```cpp
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <sstream>      // std::istringstream
+using namespace std;
+  
+  
+int main() {
+    int firstTime=1;
+    int numberOfQuery;
+ //   int numberOfChoice;
+ //   int enqueue;
+    string query;
+    vector <string> inStack;
+    vector <string> outStack;
+    cout << "Enter number of queries" << endl;
+    cin >> numberOfQuery;
+   // std::iostream::getline( numberOfChoice, enqueue );
+    for (int i = 0; i < numberOfQuery; i++) {
+        cout << "Enter query" << endl;
+        if (firstTime==1)
+        {
+            getline(cin,query);
+            firstTime=0;
+        }
+        getline(cin,query);
+        cout << "Original string: " << query << endl;
+            std::istringstream stream(query);
+            std::string type;
+            std::string element;
+
+
+            stream >> type >> element;
+
+        cout << "hi "<< type << endl;
+        if (type == "1") {
+            inStack.push_back(element);
+            cout << "hello "<<inStack.at(0) << endl;
+  
+        }
+        else if (type == "2") {
+            if (outStack.size() == 0) {
+                  if (inStack.size() > 0) {
+                    outStack.push_back(inStack.at(0));
+                    inStack.erase(inStack.begin());
+                  }
+            }
+            if (outStack.size() > 0) {
+                outStack.pop_back();
+            }
+            //outStack.pop_back();
+        }
+        else if (type== "3") {
+            if (inStack.size() > 0) {
+                cout << inStack.at(0) << endl;
+            }
+        }
+    }
+    
+    return 0;
+}
+
+```
+
+## Text Editor
+
+Requirement:
+Implement a simple text editor. The editor initially contains an empty string, . Perform  operations of the following  types:
+
+append - Append string  to the end of .
+delete - Delete the last  characters of .
+print - Print the  character of .
+undo - Undo the last (not previously undone) operation of type  or , reverting  to the state it was in prior to that operation.
+Example
+
+
+
+operation
+index   S       ops[index]  explanation
+-----   ------  ----------  -----------
+0       abcde   1 fg        append fg
+1       abcdefg 3 6         print the 6th letter - f
+2       abcdefg 2 5         delete the last 5 letters
+3       ab      4           undo the last operation, index 2
+4       abcdefg 3 7         print the 7th characgter - g
+5       abcdefg 4           undo the last operation, index 0
+6       abcde   3 4         print the 4th character - d
+The results should be printed as:
+
+f
+g
+d
+Input Format
+
+The first line contains an integer, , denoting the number of operations.
+Each line  of the  subsequent lines (where ) defines an operation to be performed. Each operation starts with a single integer,  (where ), denoting a type of operation as defined in the Problem Statement above. If the operation requires an argument,  is followed by its space-separated argument. For example, if  and , line  will be 1 abcd.
+
+Constraints
+
+The sum of the lengths of all  in the input .
+The sum of  over all delete operations .
+All input characters are lowercase English letters.
+It is guaranteed that the sequence of operations given as input is possible to perform.
+Output Format
+
+Each operation of type  must print the  character on a new line.
+
+Sample Input
+
+STDIN   Function
+-----   --------
+8       Q = 8
+1 abc   ops[0] = '1 abc'
+3 3     ops[1] = '3 3'
+2 3     ...
+1 xy
+3 2
+4 
+4 
+3 1
+Sample Output
+
+c
+y
+a
+Explanation
+
+Initially,  is empty. The following sequence of  operations are described below:
+
+. We append  to , so .
+Print the  character on a new line. Currently, the  character is c.
+Delete the last  characters in  (), so .
+Append  to , so .
+Print the  character on a new line. Currently, the  character is y.
+Undo the last update to , making  empty again (i.e., ).
+Undo the next to last update to  (the deletion of the last  characters), making .
+Print the  character on a new line. Currently, the  character is a.
+
+I had to include a struct, and some functions on appending, deleting, and undoing in the textfile. This is my current code:
+
+```cpp
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <sstream>
+using namespace std;
+ 
+class TextEditor {
+    private:
+    vector <string> s1;
+    vector <string> removedStrings;
+    int previousAction;
+    int appendCount;
+    int deleteCount;
+    //vector <string> s2;
+    public:
+    void append(string s) {
+        appendCount = s.size();
+        s1.push_back(s);
+        previousAction = 1;
+    }
+    void deleteString(int s) {
+        deleteCount = s;
+        for (int i = s1.size()-s; i < s1.size(); i++) {
+            removedStrings.push_back(s1.at(i));
+        }
+        for (int i = 0; i < s; i++) {
+            s1.pop_back();
+        }
+        previousAction = 2;
+    }
+    void printString(int s) {
+        cout << s1.at(s) << endl;
+    }
+    void undo() {
+        if (previousAction == 1) {
+            for (int i = 0; i < appendCount; i++) {
+                s1.pop_back();
+            }
+        }
+        else if (previousAction == 2) {
+            for (int j = 0; j < deleteCount; j++) {
+                for (int i = 0; i < removedStrings.size(); i++) {
+                    s1.push_back(removedStrings.at(i));
+                }
+            }
+        }
+    }
+};
+int main() {
+    int numberOfAction;
+    int choice;
+    string st;
+    vector <string> undoVector;
+    int index;
+    string txt = "";
+    string temp="";
+    string txtBackup = "";
+    cin >> numberOfAction;
+//    cin >> choice;
+    for (int i = 0; i < numberOfAction; ++i) {
+        if (i==0)
+           getline(cin, st);
+        getline (cin, st); //how to cin with a space
+        //cout << st << endl;
+        std::istringstream stream(st);
+        std::string type;
+        std::string element;
+        string temp;
+        int lastNChar;
+        stream >> type >> element;
+        choice = atoi(type.c_str());
+        switch(choice) {
+            case 1:
+                txtBackup = txt;
+                undoVector.push_back(txt);
+                txt=txt+element;
+//                cout << txt << endl;
+                break;
+            case 2:
+                txtBackup = txt;
+                lastNChar = atoi(element.c_str());
+                temp = "";
+                undoVector.push_back(txt);
+                txt = txt.substr(0, txt.size()-lastNChar);
+             /*   for (int j=0;j<txt.size()-lastNChar; j++) {
+                    temp+=txt.at(j);
+                }
+                txt = temp;*/
+                //txt.deleteString();
+                break;
+            case 3:
+                lastNChar = atoi(element.c_str());
+                //cout << "a number " << lastNChar << endl; 
+                 if (txt.size() >= lastNChar) {
+                cout << txt.at(lastNChar-1) << endl;
+                }
+                //txtBackup = txt;
+               // txt.printString(index);
+                break;
+            case 4:
+                if (undoVector.size() > 0) {
+                    txt = undoVector.back(); //stores the old stuff
+               //     cout << txt << endl;
+                    undoVector.pop_back();
+                }
+
+                
+                //txt.undo();
+                break;
+            default:
+                continue;
+        }
+    }
+    
+    return 0;
+}
+
+```
